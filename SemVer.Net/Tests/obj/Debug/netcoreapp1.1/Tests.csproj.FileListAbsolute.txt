@@ -1,0 +1,14 @@
+D:\git\SemVerNet\SemVer.Net\Tests\bin\Debug\netcoreapp1.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+D:\git\SemVerNet\SemVer.Net\Tests\bin\Debug\netcoreapp1.1\xunit.runner.utility.netstandard15.dll
+D:\git\SemVerNet\SemVer.Net\Tests\bin\Debug\netcoreapp1.1\xunit.runner.reporters.netstandard15.dll
+D:\git\SemVerNet\SemVer.Net\Tests\bin\Debug\netcoreapp1.1\Tests.deps.json
+D:\git\SemVerNet\SemVer.Net\Tests\bin\Debug\netcoreapp1.1\Tests.runtimeconfig.json
+D:\git\SemVerNet\SemVer.Net\Tests\bin\Debug\netcoreapp1.1\Tests.runtimeconfig.dev.json
+D:\git\SemVerNet\SemVer.Net\Tests\bin\Debug\netcoreapp1.1\Tests.dll
+D:\git\SemVerNet\SemVer.Net\Tests\bin\Debug\netcoreapp1.1\Tests.pdb
+D:\git\SemVerNet\SemVer.Net\Tests\bin\Debug\netcoreapp1.1\Core.dll
+D:\git\SemVerNet\SemVer.Net\Tests\bin\Debug\netcoreapp1.1\Core.pdb
+D:\git\SemVerNet\SemVer.Net\Tests\obj\Debug\netcoreapp1.1\Tests.csprojResolveAssemblyReference.cache
+D:\git\SemVerNet\SemVer.Net\Tests\obj\Debug\netcoreapp1.1\Tests.AssemblyInfo.cs
+D:\git\SemVerNet\SemVer.Net\Tests\obj\Debug\netcoreapp1.1\Tests.dll
+D:\git\SemVerNet\SemVer.Net\Tests\obj\Debug\netcoreapp1.1\Tests.pdb

@@ -1,0 +1,7 @@
+D:\git\SemVerNet\SemVer.Net\Core\bin\Debug\netcoreapp1.1\Core.deps.json
+D:\git\SemVerNet\SemVer.Net\Core\bin\Debug\netcoreapp1.1\Core.dll
+D:\git\SemVerNet\SemVer.Net\Core\bin\Debug\netcoreapp1.1\Core.pdb
+D:\git\SemVerNet\SemVer.Net\Core\obj\Debug\netcoreapp1.1\Core.csprojResolveAssemblyReference.cache
+D:\git\SemVerNet\SemVer.Net\Core\obj\Debug\netcoreapp1.1\Core.AssemblyInfo.cs
+D:\git\SemVerNet\SemVer.Net\Core\obj\Debug\netcoreapp1.1\Core.dll
+D:\git\SemVerNet\SemVer.Net\Core\obj\Debug\netcoreapp1.1\Core.pdb

@@ -67,9 +67,19 @@ namespace SemVer.Net.Core
 		public static bool operator <=  (PreReleaseIdentifier operand1, PreReleaseIdentifier operand2)
 		{
 			return operand1.CompareTo(operand2) <= 0;
-		}
+        }
 
-		public override string ToString()
+        public static implicit operator string(PreReleaseIdentifier version)
+        {
+            return version.ToString();
+        }
+
+        public static implicit operator PreReleaseIdentifier(string versionString)
+        {
+            return new PreReleaseIdentifier(versionString);
+        }
+
+        public override string ToString()
 		{
 			return identifierString;
 		}

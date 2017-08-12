@@ -84,7 +84,17 @@ namespace SemVer.Net.Core
 			return operand1.CompareTo(operand2) <= 0;
 		}
 
-		public override string ToString()
+        public static implicit operator string(SemanticVersion version)
+        {
+            return version.ToString();
+        }
+
+        public static implicit operator SemanticVersion(string versionString)
+        {
+            return new SemanticVersion(versionString);
+        }
+
+        public override string ToString()
 		{ 
 			return PreRelease.HasValue? 
 				$"{Major}.{Minor}.{Patch}-{PreRelease.ToString()}":

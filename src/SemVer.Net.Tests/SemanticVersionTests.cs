@@ -268,5 +268,29 @@ namespace SemVer.Net.Tests
                 new SemanticVersion(1, 2, 3, null, null),
                 new SemanticVersion("1.2.3"));
         }
+
+        [Fact]
+        public void CanParseSemanticVersion_Implicit()
+        {
+            Assert.Equal<SemanticVersion>(
+                "1.2.3-beta.1+build.234",
+                new SemanticVersion(1, 2, 3, new PreReleaseIdentifier("beta", "1"), new VersionMetadata("buld", "234")));
+        }
+
+        [Fact]
+        public void CanParsePreRelease_Implicit()
+        {
+            Assert.Equal<PreReleaseIdentifier>(
+                "beta.1",
+                new PreReleaseIdentifier("beta", "1"));
+        }
+
+        [Fact]
+        public void CanParseMetadata_Implicit()
+        {
+            Assert.Equal<VersionMetadata>(
+                "build.234",
+                new VersionMetadata("build", "234"));
+        }
     }
 }

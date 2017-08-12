@@ -47,6 +47,16 @@ namespace SemVer.Net.Core
             return !operand1.Equals(operand2);
         }
 
+        public static implicit operator string(VersionMetadata version)
+        {
+            return version.ToString();
+        }
+
+        public static implicit operator VersionMetadata(string versionString)
+        {
+            return new VersionMetadata(versionString);
+        }
+
         public override int GetHashCode()
         {
             return metadataString == null ? 0 : metadataString.GetHashCode();

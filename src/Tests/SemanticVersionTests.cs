@@ -189,5 +189,23 @@ namespace Tests
                     new SemanticVersion(1, 1, 1, new PreReleaseIdentifier("beta.2.2")), 1 };
             }
         }
+
+        [Fact]
+        public void MetadataDoesNotInfluencePrecedence()
+        {
+            var versions = new SemanticVersion[]
+            {
+                new SemanticVersion(1, 0, 0, null, metadata: new VersionMetadata("2")),
+                new SemanticVersion(1, 0, 0, null, metadata: new VersionMetadata("1")),
+                new SemanticVersion(1, 0, 0, null, metadata: new VersionMetadata("3")),
+                new SemanticVersion(1, 0, 0, null, metadata: new VersionMetadata("b")),
+                new SemanticVersion(1, 0, 0, null, metadata: new VersionMetadata("a")),
+                new SemanticVersion(1, 0, 0, null, metadata: new VersionMetadata("c")),
+                new SemanticVersion(1, 0, 0, null, metadata: new VersionMetadata("c.1")),
+            };
+            
+            Assert.Equal(versions, versions.OrderByDescending(x=>x));
+            Assert.Equal(versions, versions.OrderBy(x=>x));
+        }
     }
 }

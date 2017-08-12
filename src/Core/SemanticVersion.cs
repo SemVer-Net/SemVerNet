@@ -5,7 +5,8 @@ namespace Core
 	public struct SemanticVersion 
 		: IEquatable<SemanticVersion>, IComparable<SemanticVersion>
 	{
-		public SemanticVersion(int major, int minor, int patch, PreReleaseIdentifier? preRelease = null)
+		public SemanticVersion(int major, int minor, int patch, 
+			PreReleaseIdentifier? preRelease = null, VersionMetadata? metadata = null)
 		{
 			Major = major;
 			Minor = minor;
@@ -16,6 +17,12 @@ namespace Core
 			}
 
 			PreRelease = preRelease;
+
+			if(metadata.HasValue && metadata.Value == default(VersionMetadata))
+			{
+				throw new ArgumentException("Metadata cannot be empty");
+			}
+			Metadata = metadata;
 		}
 
 		public int Major { get; }
@@ -25,6 +32,7 @@ namespace Core
 		public int Patch { get; }
 
 		public PreReleaseIdentifier? PreRelease { get; }
+		public VersionMetadata? Metadata { get; }
 
 
 		public static bool operator == (SemanticVersion operand1, SemanticVersion operand2)

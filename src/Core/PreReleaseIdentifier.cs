@@ -3,35 +3,26 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using Core.Utils;
 
 namespace Core
 {
 	public struct PreReleaseIdentifier
 		: IEquatable<PreReleaseIdentifier>, IComparable<PreReleaseIdentifier>
 	{
-		private const string regexString = @"^(?<main>[0-9,A-Z,a-z]+)(\.(?<additonal>[0-9,A-Z,a-z]+))*$";
-		private static readonly Regex identifierStringRegex = new Regex(regexString, 
-			RegexOptions.Compiled | RegexOptions.Singleline);
 		private readonly string identifierString;
-		private readonly string[] identifierParts;
 		public PreReleaseIdentifier(string identifierString)
 		{
-			if (identifierString == null)
-			{
-				throw new ArgumentNullException(nameof(identifierString));
-			}
-			var parsed = identifierStringRegex.Match(identifierString);
-			if (!parsed.Success)
+			string[] parts;
+			if (!VersionUtils.TryParseVersionSuffix(identifierString, out parts))
 			{
 				throw new ArgumentException($"Invalid prerelease identifier. String '{identifierString}', does not match requirements");
 			}
-			this.identifierString = identifierString;
-			var main = parsed.Groups["main"].Value;
-			var additonal = parsed.Groups["additonal"].Captures.Cast<Capture>().Select(c => c.Value).ToArray();
-			identifierParts = new string[additonal.Length + 1];
-			identifierParts[0] = main;
-			Array.Copy(additonal, 0, identifierParts, 1, additonal.Length);
+            this.identifierString = identifierString;
+			Parts = parts;
 		}
+
+		public string[] Parts { get; }
 
 		public static bool operator == (PreReleaseIdentifier operand1, PreReleaseIdentifier operand2)
 		{
@@ -85,18 +76,18 @@ namespace Core
 
         public int CompareTo(PreReleaseIdentifier other)
         {
-			var length = Math.Min(identifierParts.Length,other.identifierParts.Length);
+			var length = Math.Min(Parts.Length,other.Parts.Length);
             for(int i = 0; i < length; i++)
 			{
-				var partDiff = CompareParts(identifierParts[i], other.identifierParts[i]);
+				var partDiff = CompareParts(Parts[i], other.Parts[i]);
 				if(partDiff != 0)
 				{
 					return partDiff;
 				}
 			}
 			return 
-				(identifierParts.Length == other.identifierParts.Length)? 0:
-				(identifierParts.Length > other.identifierParts.Length)? 1: -1;
+				(Parts.Length == other.Parts.Length)? 0:
+				(Parts.Length > other.Parts.Length)? 1: -1;
         }
 
 		private int CompareParts(string thisPart, string otherPart)

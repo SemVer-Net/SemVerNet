@@ -3,9 +3,9 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
-using Core.Helpers;
+using SemVer.Net.Core.Helpers;
 
-namespace Core
+namespace SemVer.Net.Core
 {
 	public struct PreReleaseIdentifier
 		: IEquatable<PreReleaseIdentifier>, IComparable<PreReleaseIdentifier>

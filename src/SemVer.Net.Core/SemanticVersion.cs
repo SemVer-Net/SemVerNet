@@ -1,7 +1,7 @@
 ﻿using System;
-using Core.Helpers;
+using SemVer.Net.Core.Helpers;
 
-namespace Core
+namespace SemVer.Net.Core
 {
 	public struct SemanticVersion 
 		: IEquatable<SemanticVersion>, IComparable<SemanticVersion>

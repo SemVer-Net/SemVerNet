@@ -2,9 +2,9 @@ using System;
 using System.Text;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Core.Helpers;
+using SemVer.Net.Core.Helpers;
 
-namespace Core
+namespace SemVer.Net.Core
 {
     public struct VersionMetadata : IEquatable<VersionMetadata>
     {

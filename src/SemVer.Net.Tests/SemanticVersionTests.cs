@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using Core;
+using SemVer.Net.Core;
 using Xunit;
 
-namespace Tests
+namespace SemVer.Net.Tests
 {
     public class SemanticVersionTests
     {

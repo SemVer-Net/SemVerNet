@@ -3,7 +3,7 @@ using System.Text;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Core.Helpers
+namespace SemVer.Net.Core.Helpers
 {
     public static class VersionHelpers
     {

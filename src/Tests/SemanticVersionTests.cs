@@ -6,8 +6,8 @@ using Xunit;
 
 namespace Tests
 {
-	public class SemanticVersionTests
-	{
+    public class SemanticVersionTests
+    {
         [Fact]
         public void SortVersions()
         {
@@ -27,17 +27,30 @@ namespace Tests
                 new SemanticVersion(2, 2, 0, null),
                 new SemanticVersion(2, 11, 0, null),
             };
-            var sortedVersions = versions.OrderByDescending(x=>x).OrderBy(x=>x).ToArray();
+            var sortedVersions = versions.OrderByDescending(x => x).OrderBy(x => x).ToArray();
             Assert.Equal(versions, sortedVersions);
         }
-
-
-		[Fact]
-		public void IdentifierCanNotBeEmpty()
-		{
-			Assert.Throws<ArgumentException>(()=> 
-				new SemanticVersion(1, 2, 3, new PreReleaseIdentifier()));
-		}
+        
+        [Fact]
+        public void FullVersionShouldBeSpecified()
+        {
+            Assert.Throws<ArgumentException>(() =>
+                new SemanticVersion("1.2"));
+        }
+        
+        [Fact]
+        public void MetadaCanNotBeEmpty()
+        {
+            Assert.Throws<ArgumentException>(() =>
+                new SemanticVersion(1, 2, 3, metadata: new VersionMetadata()));
+        }
+        
+        [Fact]
+        public void IdentifierCanNotBeEmpty()
+        {
+            Assert.Throws<ArgumentException>(() =>
+                new SemanticVersion(1, 2, 3, preRelease: new PreReleaseIdentifier()));
+        }
 
         [Theory]
         [MemberData(nameof(PreVersionIdentifierValidationTests))]
@@ -203,9 +216,57 @@ namespace Tests
                 new SemanticVersion(1, 0, 0, null, metadata: new VersionMetadata("c")),
                 new SemanticVersion(1, 0, 0, null, metadata: new VersionMetadata("c.1")),
             };
-            
-            Assert.Equal(versions, versions.OrderByDescending(x=>x));
-            Assert.Equal(versions, versions.OrderBy(x=>x));
+
+            Assert.Equal(versions, versions.OrderByDescending(x => x));
+            Assert.Equal(versions, versions.OrderBy(x => x));
+        }
+
+        [Fact]
+        public void CanParsePreReleaseIdentifier()
+        {
+            Assert.Equal(
+                new PreReleaseIdentifier("beta", "2", "a"),
+                new PreReleaseIdentifier("beta.2.a"));
+        }
+
+        [Fact]
+        public void CanParseMetadata()
+        {
+            Assert.Equal(
+                new VersionMetadata("beta", "2", "a"),
+                new VersionMetadata("beta.2.a"));
+        }
+
+        [Fact]
+        public void CanParseSemanticVersion()
+        {
+            Assert.Equal(
+                new SemanticVersion(1, 2, 3, new PreReleaseIdentifier("beta", "1"), new VersionMetadata("buld", "234")),
+                new SemanticVersion("1.2.3-beta.1+build.234"));
+        }
+
+        [Fact]
+        public void CanParseSemanticVersion_NoPreRelease()
+        {
+            Assert.Equal(
+                new SemanticVersion(1, 2, 3, null, new VersionMetadata("buld", "234")),
+                new SemanticVersion("1.2.3+build.234"));
+        }
+
+        [Fact]
+        public void CanParseSemanticVersion_NoMetadata()
+        {
+            Assert.Equal(
+                new SemanticVersion(1, 2, 3, new PreReleaseIdentifier("beta", "1"),null),
+                new SemanticVersion("1.2.3-beta.1"));
+        }
+
+        [Fact]
+        public void CanParseSemanticVersion_NoPreRelease_NoMetadata()
+        {
+            Assert.Equal(
+                new SemanticVersion(1, 2, 3, null, null),
+                new SemanticVersion("1.2.3"));
         }
     }
 }

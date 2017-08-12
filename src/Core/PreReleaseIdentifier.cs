@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
-using Core.Utils;
+using Core.Helpers;
 
 namespace Core
 {
@@ -11,10 +11,25 @@ namespace Core
 		: IEquatable<PreReleaseIdentifier>, IComparable<PreReleaseIdentifier>
 	{
 		private readonly string identifierString;
-		public PreReleaseIdentifier(string identifierString)
+        
+        public PreReleaseIdentifier(params string[] identifierParts)
+        {
+            if (identifierParts == null)
+            {
+                throw new ArgumentNullException(nameof(identifierParts));
+            }
+            identifierString = string.Join(".", identifierParts);
+            if (identifierParts.Any(part => !part.IsValidSuffixPart()))
+            {
+                throw new ArgumentException($"Invalid metadataParts '{identifierString}'");
+            }
+            Parts = identifierParts;
+        }
+
+        public PreReleaseIdentifier(string identifierString)
 		{
 			string[] parts;
-			if (!VersionUtils.TryParseVersionSuffix(identifierString, out parts))
+			if (!VersionHelpers.TryParseVersionSuffix(identifierString, out parts))
 			{
 				throw new ArgumentException($"Invalid prerelease identifier. String '{identifierString}', does not match requirements");
 			}

@@ -1,10 +1,29 @@
 ﻿using System;
+using Core.Helpers;
 
 namespace Core
 {
 	public struct SemanticVersion 
 		: IEquatable<SemanticVersion>, IComparable<SemanticVersion>
 	{
+        public SemanticVersion(string versionString)
+        {
+            int major, minor, patch;
+            PreReleaseIdentifier? preRelease;
+            VersionMetadata? metadata;
+            if (!VersionHelpers.TryParseVersion(versionString,
+                out major,out minor,out patch,
+                out preRelease, out metadata))
+            {
+                throw new ArgumentException($"Cannot parse semantic version '{versionString}'");
+            }
+            Major = major;
+            Minor = minor;
+            Patch = patch;
+            PreRelease = preRelease;
+            Metadata = metadata;
+        }
+
 		public SemanticVersion(int major, int minor, int patch, 
 			PreReleaseIdentifier? preRelease = null, VersionMetadata? metadata = null)
 		{

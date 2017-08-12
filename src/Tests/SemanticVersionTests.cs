@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Core;
 using Xunit;
@@ -7,6 +8,30 @@ namespace Tests
 {
 	public class SemanticVersionTests
 	{
+        [Fact]
+        public void SortVersions()
+        {
+            var versions = new SemanticVersion[]{
+                new SemanticVersion(1, 0, 0, new PreReleaseIdentifier("alpha")),
+                new SemanticVersion(1, 0, 0, new PreReleaseIdentifier("alpha.1")),
+                new SemanticVersion(1, 0, 0, new PreReleaseIdentifier("alpha.beta")),
+                new SemanticVersion(1, 0, 0, new PreReleaseIdentifier("beta")),
+                new SemanticVersion(1, 0, 0, new PreReleaseIdentifier("beta.2")),
+                new SemanticVersion(1, 0, 0, new PreReleaseIdentifier("beta.11")),
+                new SemanticVersion(1, 0, 0, new PreReleaseIdentifier("rc.1")),
+                new SemanticVersion(1, 0, 0, null),
+                new SemanticVersion(2, 0, 0, null),
+                new SemanticVersion(2, 1, 0, null),
+                new SemanticVersion(2, 1, 2, null),
+                new SemanticVersion(2, 1, 11, null),
+                new SemanticVersion(2, 2, 0, null),
+                new SemanticVersion(2, 11, 0, null),
+            };
+            var sortedVersions = versions.OrderByDescending(x=>x).OrderBy(x=>x).ToArray();
+            Assert.Equal(versions, sortedVersions);
+        }
+
+
 		[Fact]
 		public void IdentifierCanNotBeEmpty()
 		{
